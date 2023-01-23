@@ -4,6 +4,7 @@
     "es2021": true
   },
   "extends": "eslint:recommended",
+  "ignorePatterns": ["cypress.config.js"],
   "overrides": [
     {
       "files": ["**/*.test.js"],
