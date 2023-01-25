@@ -1,6 +1,7 @@
 const TEST_USER = {
   email: "donkeys@stud.noroff.no",
   password: "Test1234",
+  invalidPassword: "PaZzWord123",
 };
 
 describe("Log in", () => {
@@ -21,10 +22,11 @@ describe("Log in", () => {
 
   it("The user cannot submit the login form with invalid credentials and is shown a message.", () => {
     cy.get("#registerForm button").contains("Login").click();
-    cy.get("input[name=email]#loginEmail").type(
-      "thiswillnotwork@stud.noroff.no"
+    cy.wait(1000);
+    cy.get("input[name=email]#loginEmail").type(TEST_USER.email);
+    cy.get("input[name=password]#loginPassword").type(
+      TEST_USER.invalidPassword
     );
-    cy.get("input[name=password]#loginPassword").type("PazZWoRdZ");
     cy.get("button[type=submit").contains("Login").click();
   });
 });
