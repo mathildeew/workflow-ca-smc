@@ -6,12 +6,12 @@
 
 ## Instructions
 
-Clone the repo
-Install dependencies (npm i, npm run build)
-npm run start
-Formatting: npm run format
-Linting: npm run lint
-Testing: npm run test-unit, npm run test-e2e
+- Clone the repo
+- Install dependencies (npm i, npm run build)
+- npm run start
+- Formatting: npm run format
+- Linting: npm run lint
+- Testing: npm run test-unit, npm run test-e2e
 
 ## Built with
 
