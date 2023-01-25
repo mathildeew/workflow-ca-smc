@@ -34,12 +34,23 @@ class LocalStorageMock {
 
 global.localStorage = new LocalStorageMock();
 
+/**
+ * A mock fetch function that fetches the API successfully and stores the accestoken in localstorage
+ */
 function fetchSuccess() {
   return Promise.resolve({
     ok: true,
     status: 200,
-    statusText: "OK",
+    statusText: "",
     json: () => Promise.resolve(TEST_JSON),
+  });
+}
+
+function fetchFailure() {
+  return Promise.resolve({
+    ok: false,
+    status: 401,
+    statusText: "Incorrect email or password",
   });
 }
 
@@ -48,9 +59,15 @@ describe("Login", () => {
     global.fetch = jest.fn(() => fetchSuccess());
     const response = await login(TEST_EMAIL, TEST_PASSWORD);
     expect(response).toEqual(TEST_JSON);
-    expect(localStorage.setItem("token")).toEqual(TEST_TOKEN);
+    expect(localStorage.setItem("token")).toEqual(TEST_JSON.accessToken);
     // expect(localStorage.getItem("token")).toEqual(TEST_TOKEN);
   });
 
-  // it("Does not store a token when provided with unvalid credentials", async () => {});
+  it("Does not store a token when provided with unvalid credentials and throws error", async () => {
+    global.fetch = jest.fn(() => fetchFailure());
+    await expect(login(TEST_EMAIL, "noLoginForDonkey")).rejects.toThrow(
+      "Incorrect email or password"
+    );
+    // expect(localStorage.setItem("token")).toHaveBeenCalledTimes(0);
+  });
 });
