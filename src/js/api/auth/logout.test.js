@@ -37,7 +37,7 @@ global.localStorage = new LocalStorageMock();
 localStorage.setItem("token", TEST_TOKEN);
 
 describe("Logout", () => {
-  it("Clears the token from browser storage", async () => {
+  it("Clears the token from browser storage", () => {
     expect(localStorage.getItem("token")).toEqual(TEST_TOKEN);
     logout();
     expect(localStorage.getItem("token")).toBeUndefined();
